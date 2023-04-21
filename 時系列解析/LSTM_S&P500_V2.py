@@ -8,26 +8,32 @@ from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 
 # データセットの読み込み
-df = pd.read_csv('S&P500_V1.csv')
+df = pd.read_csv("S&P500_V2.csv", index_col=0, parse_dates=True, thousands=',', encoding='utf-8')
 
-# 日付列をインデックスに設定
-df = df.set_index('日付け')
+# 変化率の % を取り除く
+df['変化率'] = df['変化率 %'].apply(lambda x: float(x[:-1]))
 
 # 終値だけを抽出
-df = df[['終値']]
+df = df[['終値', '変化率']]
 
-# データセットの先頭5行を表示
-print(df.head())
+# 欠損値を0で埋める
+df.fillna(0, inplace=True)
+
+# 終値のグラフを表示する
+df['終値'].plot(figsize=(10,5))
+plt.show()
+
+# 変化率の統計量を表示する
+print(df['変化率'].describe())
+
+# 変化率のヒストグラムを表示する
+df['変化率'].hist(bins=50, figsize=(10,5))
+plt.show()
 
 # データのスケーリング
 scaler = MinMaxScaler(feature_range=(0, 1))
-df['終値'] = df['終値'].str.replace(',', '').astype(float)
-df['始値'] = df['始値'].str.replace(',', '').astype(float)
-df['高値'] = df['高値'].str.replace(',', '').astype(float)
-df['安値'] = df['安値'].str.replace(',', '').astype(float)
-df['出来高'] = df['出来高'].str.replace('', '0').astype(float)
-df['変化率 %'] = df['変化率 %'].str.replace('%', '').astype(float)
-df = scaler.fit_transform(df.drop('日付け', axis=1))
+df['終値'] = scaler.fit_transform(df['終値'].values.reshape(-1,1))
+df['変化率'] = scaler.fit_transform(df['変化率'].values.reshape(-1,1))
 
 # 訓練データとテストデータに分割
 train_size = int(len(df) * 0.8)
