@@ -14,3 +14,15 @@ print(f'  Value: {trial.value:.5f}')
 print('  Params:')
 for key, value in trial.params.items():
     print(f'    {key}: {value}')
+
+Number of Trails:  44924
+Best trial:
+  Value: 0.94004
+  Params:
+    batch: 49
+    dropout_rate: 0.05458004013794146
+    learning_rate: 0.001648506479871434
+    n_units_layer0: 76
+    n_units_layer1: 75
+    n_units_layer2: 88
+    n_units_layer3: 39

@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-#!/usr/bin/env python3
-
 import pandas as pd
 import numpy as np
 from keras.models import Sequential
@@ -71,3 +69,14 @@ expected = y_test
 from sklearn import metrics
 print(metrics.confusion_matrix(expected, predicted))
 print(metrics.classification_report(expected, predicted))
+
+[[10156    15]
+ [   94   918]]
+              precision    recall  f1-score   support
+
+         0.0       0.99      1.00      0.99     10171
+         1.0       0.98      0.91      0.94      1012
+
+    accuracy                           0.99     11183
+   macro avg       0.99      0.95      0.97     11183
+weighted avg       0.99      0.99      0.99     11183
