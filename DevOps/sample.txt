@@ -6,3 +6,4 @@ conflict!!!
 add from new_branch
 
 test2
+test
