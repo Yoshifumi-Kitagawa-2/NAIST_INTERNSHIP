@@ -1,0 +1,6 @@
+name: Test
+on: [push]
+jobs:
+  on_build_action:
+    runs-on:ubuntu-latest
+
